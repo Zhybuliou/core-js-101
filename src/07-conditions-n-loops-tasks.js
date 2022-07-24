@@ -27,8 +27,11 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  if (num % 5 === 0 && num % 3 === 0) { return 'FizzBuzz'; }
+  if (num % 3 === 0) { return 'Fizz'; }
+  if (num % 5 === 0) { return 'Buzz'; }
+  return num;
 }
 
 
@@ -43,8 +46,8 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  return n === 0 ? 1 : n * getFactorial(n - 1);
 }
 
 
@@ -60,8 +63,14 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let add = n1;
+  let sum = 0;
+  while (n2 >= add) {
+    sum += add;
+    add += 1;
+  }
+  return sum;
 }
 
 
@@ -80,8 +89,10 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  if ([a, b, c].includes(0)) return false;
+  if (a + b > c && a + c > b && c + b > a) return true;
+  return false;
 }
 
 
@@ -164,8 +175,13 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const obj = {};
+  for (let i = 0; str.length > i; i += 1) {
+    obj[str[i]] = obj[str[i]] ? obj[str[i]] += 1 : 1;
+  }
+  const arr = Object.entries(obj).filter((e) => e[1] === 1);
+  return arr.length > 0 ? arr[0][0] : null;
 }
 
 
@@ -208,8 +224,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split(' ').map((e) => e.split('').reverse().join('')).reverse().join(' ');
 }
 
 
@@ -225,8 +241,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return Number(num.toString().split('').reverse().join(''));
 }
 
 
