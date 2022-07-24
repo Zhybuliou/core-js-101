@@ -28,10 +28,12 @@
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
+function willYouMarryMe(isPositiveAnswer) {
+  return new Promise((resolve, reject) => {
+    if (typeof isPositiveAnswer === 'boolean') resolve(isPositiveAnswer ? 'Hooray!!! She said "Yes"!' : 'Oh no, she said "No".');
+    return reject(new Error('Wrong parameter is passed! Ask her again.'));
+  });
 }
-
 
 /**
  * Return Promise object that should be resolved with array containing plain values.
