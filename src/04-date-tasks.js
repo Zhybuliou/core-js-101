@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* *******************************************************************************************
  *                                                                                           *
  * Please read the following tutorial before implementing tasks:                              *
@@ -53,10 +54,11 @@ function parseDataFromIso8601(value) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  return ((date.getFullYear() % 4 === 0)
+   && (date.getFullYear() % 100 !== 0))
+   || (date.getFullYear() % 400 === 0);
 }
-
 /**
  * Returns the string representation of the timespan between two dates.
  * The format of output string is "HH:mm:ss.sss"
@@ -72,8 +74,13 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  const d = new Date(endDate - startDate);
+  const hour = d.getUTCHours() > 9 ? `${d.getUTCHours()}` : `0${d.getUTCHours()}`;
+  const minute = d.getUTCMinutes() > 9 ? `${d.getUTCMinutes()}` : `0${d.getUTCMinutes()}`;
+  const second = d.getUTCSeconds() > 9 ? `${d.getUTCSeconds()}` : `0${d.getUTCSeconds()}`;
+  const millisecond = d.getUTCMilliseconds() > 99 ? `${d.getUTCMilliseconds()}` : d.getUTCMilliseconds() > 9 ? `0${d.getUTCMilliseconds()}` : `00${d.getUTCMilliseconds()}`;
+  return `${hour}:${minute}:${second}.${millisecond}`;
 }
 
 
@@ -93,8 +100,15 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  const dateMilliseconds = Date.parse(date);
+  const dateUTC = new Date(dateMilliseconds);
+  const hours = dateUTC.getUTCHours() > 12 ? dateUTC.getUTCHours() - 12 : dateUTC.getUTCHours();
+  const minutes = dateUTC.getUTCMinutes();
+  const output = Math.abs(0.5 * (60 * hours - 11 * minutes)) > 180
+    ? 360 - Math.abs(0.5 * (60 * hours - 11 * minutes))
+    : Math.abs(0.5 * (60 * hours - 11 * minutes));
+  return (output * Math.PI) / 180;
 }
 
 
